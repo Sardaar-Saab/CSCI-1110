@@ -1,6 +1,7 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class Problem2 {
+public class Problem3 {
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
         //Weights for each assessment
@@ -112,7 +113,18 @@ public class Problem2 {
         double practicumsAverage = 0;
         double podsAverage = 0;
 
+        double[] tests = new double[marks.length];
+        double[] assignments = new double[marks.length];
+        double[] practicums = new double[marks.length];
+        double[] pods = new double[marks.length];
+
         for (int i = 0; i < marks.length; i++) {
+
+            tests[i] = marks[i][0];
+            assignments[i] = marks[i][1];
+            practicums[i] = marks[i][2];
+            pods[i] = marks[i][3];
+
             testsAverage += marks[i][0];
             assignmentsAverage += marks[i][1];
             practicumsAverage += marks[i][2];
@@ -120,9 +132,35 @@ public class Problem2 {
         }
 
         System.out.println("Class Averages: ");
-        System.out.printf("Tests: %.2f - Assignments: %.2f - Practicums: %.2f - PoDs: %.2f",
+        System.out.printf("Tests: %.2f - Assignments: %.2f - Practicums: %.2f - PoDs: %.2f\n",
                 testsAverage/marks.length, assignmentsAverage/marks.length, practicumsAverage/marks.length,
                 podsAverage/marks.length);
+
+
+        System.out.println("Class Medians: ");
+        System.out.printf("Tests: %.2f - Assignments: %.2f - Practicums: %.2f - PoDs: %.2f\n",
+                getMedian(tests), getMedian(assignments), getMedian(practicums), getMedian(pods));
+
+
+    }
+
+    /**
+     * Calculates the median of a numbers in a an array. The method does not assume that the
+     * array is already sorted.
+     * @param numbers The 1D array containing the numbers
+     * @return the median
+     */
+    public static double getMedian(double[] numbers){
+        double[] sortedMarks = Arrays.copyOf(numbers, numbers.length);
+        Arrays.sort(sortedMarks);
+
+        int middle = sortedMarks.length/2;
+
+        if(sortedMarks.length % 2 != 0){
+            return sortedMarks[middle];
+        }
+
+        return (sortedMarks[middle - 1] + sortedMarks[middle])/2;
 
     }
 
